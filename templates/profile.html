@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Display database data
+<h1>{{ user.first_name }} {{ user.last_name }}</h1>
+<p>Graduation Year: {{ user.graduation_year }}</p>
+ Add other fields -->
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Alumni Network</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>Alumni Network</h1>
+            </div>
+
+            <nav class="nav nav-pills flex-column flex-sm-row">
+                <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('index') }}">Home</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('directory') }}">Directory</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('events') }}">Events</a>
+
+                {% if 'email' in session %}
+                    <!-- Show when user is logged in -->
+                    <a class="btn btn-primary" href="{{ url_for('profile') }}">Profile</a>
+                    <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('logout') }}">Logout</a>
+
+                    {% if session['email'] in ['admin1@example.com', 'admin2@example.com'] %}
+                    <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('admin') }}">Admin</a>
+                    {% endif %}
+
+                {% else %}
+                    <!-- Show when user is not logged in -->
+                    <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('login') }}">Login</a>
+                    <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('register') }}">Register</a>
+                {% endif %}
+            </nav>
+    
+
+
+        </div>
+    </header>
+
+    <main class="profile-page">
+        <div class="container">
+            <div class="profile-header">
+                <div class="profile-photo-section">
+                    <div class="profile-photo">
+                        <img src="images/default-avatar.jpg" alt="Profile Picture">
+                        <a href="#change-photo" class="edit-photo-btn"><i class="fas fa-camera"></i></a>
+                    </div>
+                    <div class="profile-info">
+                        <!-- <h1>Saurabh Kumar Gupta</h1>
+                        <p class="position">Senior Software Engineer at TechCorp</p> -->
+                        <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+                        <p class="position">{{ user.current_job or "No job info" }} at {{ user.current_company or "N/A" }}</p>
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">245</span>
+                                <span class="stat-label">Connections</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">{{user.graduation_year}}</span>
+                                <span class="stat-label">Graduation Year</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <nav class="profile-nav">
+                    <a href="#about" class="active">About</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#education">Education</a>
+                    <a href="#skills">Skills</a>
+                </nav>
+            </div>
+
+            <div class="profile-content">
+                <!-- About Section -->
+                <section id="about" class="profile-section active-section">
+                    <h2>About Me</h2>
+                    <p>{{user.bio}}</p>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i>{{user.email}}</p>
+                        <p><i class="fas fa-map-marker-alt"></i>{{user.phone}}</p>
+                        <p><i class="fas fa-link"></i> https://SKGportfolio.com</p>
+                    </div>
+                </section>
+
+                <!-- Experience Section -->
+                <section id="experience" class="profile-section">
+                    <h2>Work Experience</h2>
+                    <div class="experience-item">
+                        <div class="company-logo">
+                            <img src="images/techcorp-logo.png" alt="TechCorp">
+                        </div>
+                        <div class="experience-details">
+                            <h3>Senior Software Engineer</h3>
+                            <p class="company">TechCorp</p>
+                            <p class="duration">2023 - Present</p>
+                            <ul class="responsibilities">
+                                <li>Lead team of 5 developers in building enterprise applications</li>
+                                <li>Implemented CI/CD pipeline reducing deployment time by 40%</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Education Section -->
+                <section id="education" class="profile-section">
+                    <h2>Education</h2>
+                    <div class="education-item">
+                        <div class="institution-logo">
+                            <img src="images/university-logo.png" alt="State University">
+                        </div>
+                        <div class="education-details">
+                            <h3>Bachelor of Science in Computer Science</h3>
+                            <p class="institution">Natinoal Institute of Technology</p>
+                            <p class="duration">2023 - 2027</p>
+                            <p class="achievements">Graduated Summa Cum Laude</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Skills Section -->
+                <section id="skills" class="profile-section">
+                    <h2>Skills & Expertise</h2>
+                    <div class="skills-container">
+                        <span class="skill-tag">C language</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Database SQL</span>
+                        <span class="skill-tag">Matlab</span>
+                        <span class="skill-tag">Team Leadership</span>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2023 Alumni Network. All rights reserved.</p>
+                <nav class="footer-nav">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages - Alumni Network</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/messages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <!-- Same header as previous pages -->
+    </header>
+
+    <main class="messages-page">
+        <div class="container">
+            <div class="messages-container">
+                <!-- Conversations List -->
+                <aside class="conversations-list">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search conversations">
+                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    
+                    <!-- Conversation 1 -->
+                    <div class="conversation active">
+                        <img src="images/user1.jpg" alt="Sarah" class="conversation-avatar">
+                        <div class="conversation-info">
+                            <h4>Sarah Johnson</h4>
+                            <p class="last-message">Looking forward to the event!</p>
+                            <p class="timestamp">2h ago</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Conversation 2 -->
+                    <div class="conversation">
+                        <img src="images/user2.jpg" alt="Mike" class="conversation-avatar">
+                        <div class="conversation-info">
+                            <h4>Mike Chen</h4>
+                            <p class="last-message">Thanks for connecting!</p>
+                            <p class="timestamp">1d ago</p>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Chat Window -->
+                <section class="chat-window">
+                    <div class="chat-header">
+                        <div class="recipient-info">
+                            <img src="images/user1.jpg" alt="Sarah" class="recipient-avatar">
+                            <h3>Sarah Johnson</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-messages">
+                        <!-- Messages -->
+                        <div class="message received">
+                            <p class="message-content">Hi! Are you attending the reunion?</p>
+                            <p class="message-time">10:15 AM</p>
+                        </div>
+                        
+                        <div class="message sent">
+                            <p class="message-content">Yes, looking forward to it!</p>
+                            <p class="message-time">10:17 AM</p>
+                        </div>
+                    </div>
+                    
+                    <div class="message-input">
+                        <input type="text" placeholder="Type your message...">
+                        <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <!-- Same footer -->
+    </footer>
+</body>
+</html>

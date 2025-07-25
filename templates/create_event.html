@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Event - Alumni Network</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='create_event.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Create New Event</h1>
+        <form method="POST" action="{{ url_for('create_event') }}">
+            <label for="title">Event Title:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+
+            <label for="event_date">Event Date & Time:</label>
+            <input type="datetime-local" id="event_date" name="event_date" required>
+
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required>
+
+            <button type="submit" class="submit-btn">Create Event</button>
+        </form>
+    </div>
+</body>
+</html>

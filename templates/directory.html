@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Directory - Alumni Network</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='directory.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>Alumni Network</h1>
+            </div>
+            
+            <!-- <a href="#main-nav" class="mobile-menu-btn" id="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </a> -->
+            
+
+                
+
+
+                <nav class="nav nav-pills flex-column flex-sm-row">
+                    <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('index') }}">Home</a>
+                    <a class="btn btn-primary" href="{{ url_for('directory') }}">Directory</a>
+
+                    <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('events') }}">Events</a>
+
+                    {% if 'email' in session %}
+                        <!-- Show when user is logged in -->
+                        <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('profile') }}">Profile</a>
+                        <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('logout') }}">Logout</a>
+
+                        {% if session['email'] in ['admin1@example.com', 'admin2@example.com'] %}
+                    <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('admin') }}">Admin</a>
+                        {% endif %}
+
+                    {% else %}
+                        <!-- Show when user is not logged in -->
+                        <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('login') }}">Login</a>
+                        <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('register') }}">Register</a>
+                    {% endif %}
+                </nav>
+
+
+
+        
+        </div>
+    </header>
+
+    <main class="directory-page">
+        <div class="container">
+            <div class="page-header">
+                <h1>Alumni Directory</h1>
+                <section class="search-section">
+                    <div class="search-container">
+                        <h2>Find Alumni</h2>
+                        <form method="GET" action="{{ url_for('directory') }}" class="search-form">
+                            <div class="search-bar">
+                                <input type="text" name="search" placeholder="Search by name or company..." 
+                                    value="{{ search_query if search_query }}">
+                                <button type="submit"><i class="fas fa-search"></i> Search</button>
+                                {% if search_query %}
+                                <a href="{{ url_for('directory') }}" class="clear-search">Clear Search</a>
+                                {% endif %}
+                            </div>
+                        </form>
+                    </div>
+                </section>
+                <!-- <div class="search-filter">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search by name, company, or skills">
+                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="filter-options">
+                        <select id="graduation-year">
+                            <option value="">All Graduation Years</option>
+                            <option>2010</option>
+                            <option>2015</option>
+                            <option>2020</option>
+                        </select>
+                        <select id="location">
+                            <option value="">All Locations</option>
+                            <option>Banglore</option>
+                            <option>Germany</option>
+                            <option>New Delhi</option>
+                        </select>
+                    </div>
+                </div> -->
+            </div>
+
+            <div class="alumni-carousel">
+                <button class="carousel-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <div class="alumni-grid">
+                    {% for alumni in alumni_list %}
+                    <article class="alumni-card">
+                        <div class="alumni-photo">
+                            <img src="{{ url_for('static', filename='images/default.jpg') }}" alt="{{ alumni.first_name }} {{ alumni.last_name }}">
+                            <span class="connection-status pending"><i class="fas fa-clock"></i> Pending</span>
+                        </div>
+                        <div class="alumni-info">
+                            <h3>{{ alumni.first_name }} {{ alumni.last_name }}</h3>
+                            <p class="graduation">Class of {{ alumni.graduation_year }} - {{ alumni.degree }}</p>
+                            <p class="position">{{ alumni.current_job }} at {{ alumni.current_company }}</p>
+                            <div class="alumni-actions">
+                                <a href="#" class="btn btn-primary"><i class="fas fa-user-plus"></i> Connect</a>
+                                <a href="#" class="btn btn-secondary"><i class="fas fa-envelope"></i> Message</a>
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+                <button class="carousel-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            
+            
+
+            <div class="pagination">
+                <button class="btn btn-secondary"><i class="fas fa-chevron-left"></i> Previous</button>
+                <span class="page-numbers">
+                    <button class="active">1</button>
+                    <button>2</button>
+                    <button>3</button>
+                </span>
+                <button class="btn btn-secondary">Next <i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2023 Alumni Network. All rights reserved.</p>
+                <nav class="footer-nav">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const grid = document.querySelector('.alumni-grid');
+            const cards = document.querySelectorAll('.alumni-card');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            
+            if (!grid || !cards.length || !prevBtn || !nextBtn) return;
+            
+            const cardWidth = cards[0].offsetWidth + 20; // width + gap
+            let currentPosition = 0;
+            const maxPosition = -((cards.length - 3) * cardWidth);
+            
+            function updateButtons() {
+                prevBtn.disabled = currentPosition >= 0;
+                nextBtn.disabled = currentPosition <= maxPosition;
+            }
+            
+            prevBtn.addEventListener('click', function() {
+                if (currentPosition < 0) {
+                    currentPosition += cardWidth;
+                    grid.style.transform = `translateX(${currentPosition}px)`;
+                    updateButtons();
+                }
+            });
+            
+            nextBtn.addEventListener('click', function() {
+                if (currentPosition > maxPosition) {
+                    currentPosition -= cardWidth;
+                    grid.style.transform = `translateX(${currentPosition}px)`;
+                    updateButtons();
+                }
+            });
+            
+            updateButtons();
+        });
+        </script>
+        
+</body>
+</html>

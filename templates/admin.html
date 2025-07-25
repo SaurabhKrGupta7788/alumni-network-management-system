@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Alumni Network</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>Alumni Network</h1>
+            </div>
+            
+            <nav class="nav nav-pills flex-column flex-sm-row">
+                
+                <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('index') }}">Home</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('directory') }}">Directory</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('events') }}">Events</a>
+                <a class="btn btn-primary" href="{{ url_for('admin') }}">Admin</a>  
+                <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('login') }}">Login</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('register') }}">Register</a>    
+                <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('profile') }}">Profile</a>
+            </nav>
+        </div>
+    </header>
+
+        <main class="admin-main">
+            <header class="admin-header">
+                <h1>Admin Panel-Dashboard Overview</h1>
+                <div class="admin-search">
+                    <input type="text" placeholder="Search...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+            </header>
+
+            <div class="admin-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>1,245</h3>
+                            <p>Total Users</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <section class="recent-activity">
+                        <h2>Recent Activity</h2>
+                        <!-- Activity list -->
+                    </section>
+                    
+                    <section class="quick-actions">
+                        <h2>Quick Actions</h2>
+                        <div class="action-buttons">
+                            <a href="{{ url_for('create_event') }}" class="btn btn-primary">
+                                <i class="fas fa-calendar-plus"></i> Create Event
+                            </a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+</body>
+</html>

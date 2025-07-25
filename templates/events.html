@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Alumni Network</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='events.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>Events Organised</h1>
+            </div>
+            
+            <!-- <a href="#main-nav" class="mobile-menu-btn" id="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </a> -->
+            
+            <nav class="nav nav-pills flex-column flex-sm-row">
+                <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('index') }}">Home</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('directory') }}">Directory</a>
+                <a class="btn btn-primary" href="{{ url_for('events') }}">Events</a>
+
+                {% if 'email' in session %}
+                    <!-- Show when user is logged in -->
+                    <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('profile') }}">Profile</a>
+                    <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('logout') }}">Logout</a>
+
+                    {% if session['email'] in ['admin1@example.com', 'admin2@example.com'] %}
+                    <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('admin') }}">Admin</a>
+                    {% endif %}
+
+                {% else %}
+                    <!-- Show when user is not logged in -->
+                    <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('login') }}">Login</a>
+                    <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('register') }}">Register</a>
+                {% endif %}
+            </nav>
+
+                
+
+        </div>
+    </header>
+
+    <main class="events-page">
+        <div class="container">
+
+            <div class="events-tabs">
+                <a href="{{ url_for('events', filter='upcoming') }}" class="{{ 'active' if filter == 'upcoming' else '' }}">Upcoming</a>
+                <a href="{{ url_for('events', filter='past') }}" class="{{ 'active' if filter == 'past' else '' }}">Past Events</a>
+            </div>
+            
+
+            <div class="events-list">
+                {% for event in events %}
+                <article class="event-card">
+                    <div class="event-date">
+                        <div class="date-day">{{ event.event_date.strftime('%d') }}</div>
+                        <div class="date-month">{{ event.event_date.strftime('%b').upper() }}</div>
+                    </div>
+                    <div class="event-info">
+                        <h3>{{ event.title }}</h3>
+                        <div class="event-meta">
+                            <p><i class="fas fa-clock"></i> {{ event.event_date.strftime('%I:%M %p') }}</p>
+                            <p><i class="fas fa-map-marker-alt"></i> {{ event.location or 'TBD' }}</p>
+                        </div>
+                        <p class="event-description">{{ event.description }}</p>
+                        <div class="event-actions">
+                            <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Register</button>
+                            <button class="btn btn-secondary"><i class="fas fa-info-circle"></i> Details</button>
+                        </div>
+                    </div>
+                </article>
+                {% else %}
+                <p>No {{ filter }} events available.</p>
+                {% endfor %}
+            </div>
+            
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <!-- Same footer as previous pages -->
+    </footer>
+</body>
+</html>

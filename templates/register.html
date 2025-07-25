@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Alumni Network</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <form class="registration-form" action="{{ url_for('register') }}" method="post"></form>
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>Alumni Network</h1>
+            </div>
+
+            <!-- <a href="#main-nav" class="mobile-menu-btn" id="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </a> -->
+
+            <nav class="main-nav" id="main-nav">
+
+                <ul>
+                    <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('index') }}">Home</a>
+                    <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('login') }}">Login</a>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="registration-page">
+        <div class="container">
+            <div class="registration-container">
+                <div class="registration-header">
+                    <h2>Create Your Account</h2>
+                    <p>Join our alumni network to connect with fellow graduates and students.</p>
+                </div>
+
+                <form class="registration-form" action="#registration-success" method="post">
+                    <div class="form-group user-type-toggle">
+                        <label>I am:</label>
+                        <div class="radio-group">
+                            <input type="radio" id="alumni" name="user-type" value="alumni" checked>
+                            <label for="alumni">Alumni</label>
+
+                            <input type="radio" id="student" name="user-type" value="student">
+                            <label for="student">Student</label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name" name="first-name" required>
+                            <span class="error-message">Please enter your first name</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name" name="last-name" required>
+                            <span class="error-message">Please enter your last name</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                        <span class="error-message">Please enter a valid email address</span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required minlength="8">
+                            <span class="error-message">Minimum 8 characters required</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password</label>
+                            <input type="password" id="confirm-password" name="confirm-password" required minlength="8">
+                            <span class="error-message">Passwords must match</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="graduation-year">Graduation Year</label>
+                            <select id="graduation-year" name="graduation-year" required>
+                                <option value="">Select Year</option>
+                                {% for year in graduation_years %}
+                                    <option value="{{ year }}">{{ year }}</option>
+                                {% endfor %}
+                                <option value="">2024</option>
+                                <option value="">2023</option>
+                                <option value="">2022</option>
+                                <option value="">2021</option>
+                                <!-- Options will be added via server-side -->
+                            </select>    
+                        </div>
+
+                        <div class="form-group">
+                            <label for="degree">Degree</label>
+                            <input type="text" id="degree" name="degree" required>
+                            <span class="error-message">Please enter your degree</span>
+                        </div>
+                    </div>
+                    <!-- Add these fields to your form -->
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="current-job">Current Job Title</label>
+                        <input type="text" id="current-job" name="current-job">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="current-company">Current Company</label>
+                        <input type="text" id="current-company" name="current-company">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bio">Bio/About You</label>
+                        <textarea id="bio" name="bio" rows="4"></textarea>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy
+                                Policy</a></label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                </form>
+
+                <div id="registration-success" class="success-message">
+                    <p>Registration successful! Please check your email for verification.</p>
+                </div>
+
+                <div class="registration-footer">
+                    <p>Already have an account? <a href="login.html">Sign in</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2023 Alumni Network. All rights reserved.</p>
+                <nav class="footer-nav">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
