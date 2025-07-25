@@ -36,5 +36,35 @@ The SQL schema file is included as `AlumniNetwork.sql`.
 ## How to Run Locally
 
 1. Clone this repository
+git clone https://github.com/SaurabhKrGupta/alumni-network-management-system.git
+cd alumni-network-management-system
+
+2. Import the database
+Open your MySQL server and run: mysql -u root -p < AlumniNetwork.sql
+
+3. Install Python dependencies
+pip install flask mysql-connector-python
+
+4. Update database credentials
+Edit `app.py` and update the database configuration if required:
+```python
+db_config = {
+    'host': 'localhost',
+    'user': 'root',
+    'password': 'Mysql0@@',
+    'database': 'alumni_network'
+}
+```
+5. Run the application
+python app.py
+
+6. Access the web application
+   http://127.0.0.1:5000/
+
+
+
+
+
+
 
 
