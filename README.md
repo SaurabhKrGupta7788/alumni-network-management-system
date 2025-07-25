@@ -1,5 +1,3 @@
-# alumni-network-management-system
-A Full-Stack Alumni Networking &amp; Profile Management System built using Flask and MySQL.
 # Alumni Network and Profile Management System
 
 A full-stack web-based platform built using Flask and MySQL, designed to manage alumni data, events, and user profiles efficiently. This system allows alumni to register, log in, manage their personal and professional information, participate in events, and stay connected with fellow graduates.
